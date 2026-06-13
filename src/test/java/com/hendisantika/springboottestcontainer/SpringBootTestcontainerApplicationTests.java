@@ -1,12 +1,13 @@
 package com.hendisantika.springboottestcontainer;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -18,6 +19,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
         },
         webEnvironment = RANDOM_PORT
 )
+@AutoConfigureTestRestTemplate
 class SpringBootTestcontainerApplicationTests {
 
     @Autowired
@@ -25,7 +27,7 @@ class SpringBootTestcontainerApplicationTests {
 
     @Test
     @DisplayName("Database status will be UP and Database name should be PostgreSQL")
-    void databaseIsAvailable() throws com.fasterxml.jackson.core.JsonProcessingException {
+    void databaseIsAvailable() {
         var response = restTemplate.getForEntity("/actuator/health", String.class);
 
         assertThat(response.getBody()).isNotNull();
