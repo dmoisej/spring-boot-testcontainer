@@ -6,8 +6,8 @@ import com.hendisantika.springboottestcontainer.repository.BookRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -52,8 +52,8 @@ class BookRepositoryTest {
 
         author.setName("Monkey D. Luffy");
         //arrange
-        Book book1 = new Book(1L, author, "Java");
-        Book book2 = new Book(2L, author, "Kotlin");
+        Book book1 = new Book(null, author, "Java");
+        Book book2 = new Book(null, author, "Kotlin");
         bookRepository.saveAll(List.of(book1, book2));
         //act
         List<Book> books = new ArrayList<>();
